@@ -48,6 +48,11 @@ Aprendí a usar la herramienta estándar de la industria para descubrir "puertas
 | `nmap -sn` | Ping Sweep | Descubrir qué máquinas están encendidas en la red. |
 | `nmap -oN` | Guardar Resultados | Exportar el hallazgo a un archivo de texto (.txt). |
 
+Si el escaneo se rinde usas este comando mas tryhard :
+Para evitar que el escaneo se rinda, vamos a usar un comando que sea más "paciente" o que ataque de forma más inteligente. Prueba con este:
+
+sudo nmap -Pn -F --max-retries 1 scanme.nmap.org 
+
 ### 🛰️ 2. Descubrimiento de Red Local (Ofuscado)
 Realicé un análisis de mi segmento de red interna para identificar la topología del laboratorio:
 
