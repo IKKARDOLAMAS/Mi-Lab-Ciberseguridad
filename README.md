@@ -33,3 +33,37 @@ Hoy configuré mi entorno seguro y aprendí los comandos básicos de supervivenc
 
 ---
 *"La curiosidad es la mejor herramienta de un hacker."*
+
+## 📅 Día 2: Reconocimiento y Escaneo de Redes (Nmap)
+Hoy me enfoqué en la fase de **Reconocimiento**, aprendiendo a identificar dispositivos y servicios activos en una red de forma profesional.
+
+### 🔍 1. Comandos de Nmap Dominados
+Aprendí a usar la herramienta estándar de la industria para descubrir "puertas abiertas":
+
+| Comando | Función | Objetivo |
+| :--- | :--- | :--- |
+| `nmap <IP_OBJETIVO>` | Escaneo básico | Identificar puertos abiertos comunes. |
+| `nmap -sV` | Detección de Versiones | Saber qué software exacto corre en el puerto. |
+| `nmap -sS` | SYN Scan (Stealth) | Escaneo sigiloso que no completa la conexión TCP. |
+| `nmap -sn` | Ping Sweep | Descubrir qué máquinas están encendidas en la red. |
+| `nmap -oN` | Guardar Resultados | Exportar el hallazgo a un archivo de texto (.txt). |
+
+### 🛰️ 2. Descubrimiento de Red Local (Ofuscado)
+Realicé un análisis de mi segmento de red interna para identificar la topología del laboratorio:
+
+* **Mi IP Local:** `10.0.X.15` (Interfaz `eth0`).
+* **Gateway detectado:** `10.0.X.2` (Puerta de enlace virtual).
+* **Escaneo de Red:** Se identificaron 3 dispositivos activos en el segmento `/24`.
+
+### 🎯 3. Análisis de Servicios Críticos
+Al escanear el objetivo principal, identifiqué servicios de Windows que son vectores de ataque comunes:
+
+* **Puerto 445 (SMB):** Servicio de compartición de archivos. Históricamente vulnerable a exploits como *EternalBlue*.
+* **Puerto 135 (MSRPC):** Comunicación entre procesos.
+* **Estado "Filtered":** Detecté la presencia de un Firewall bloqueando la mayoría de los puertos.
+
+### 🧠 Concepto Clave del Día: El "Three-Way Handshake"
+Aprendí cómo se comunican las máquinas mediante el saludo de 3 pasos (SYN, SYN-ACK, ACK). Entender este proceso es lo que permite a un atacante saber si una puerta está abierta, cerrada o protegida por un firewall sin ser detectado fácilmente.
+
+---
+*Notas: Todas las IPs han sido ofuscadas por seguridad siguiendo las mejores prácticas de ciberseguridad.*
