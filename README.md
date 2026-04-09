@@ -72,3 +72,18 @@ Aprendí cómo se comunican las máquinas mediante el saludo de 3 pasos (SYN, SY
 
 ---
 *Notas: Todas las IPs han sido ofuscadas por seguridad siguiendo las mejores prácticas de ciberseguridad.*
+
+### 🎯 4. Descubrimiento de Hosts en Red Local
+Ejecuté un escaneo de red en el segmento `10.0.2.0/24` obteniendo los siguientes resultados:
+* **Hosts detectados:** 3 (IPs: .2, .3, .15).
+* **Herramienta usada:** `nmap -sn` (Ping Sweep).
+* **Conclusión:** Identifiqué la infraestructura de red virtual proporcionada por VirtualBox antes de proceder al escaneo de servicios.
+
+* ### 🔎 5. Análisis de Puertos y Servicios (Escaneo SYN)
+Realicé un escaneo sigiloso (`-sS`) al objetivo `10.0.2.2` detectando servicios críticos de Windows:
+
+* **Puerto 445 (SMB):** Servicio de intercambio de archivos. Es un vector de ataque histórico (ej. EternalBlue).
+* **Puerto 135 (MSRPC):** Comunicación entre procesos de Windows.
+* **Estado "Filtered":** 97 puertos están protegidos por un Firewall que no respondió a mis paquetes.
+
+**Conclusión:** El objetivo es una máquina Windows. El siguiente paso lógico sería realizar una enumeración de SMB para ver si hay carpetas compartidas sin contraseña.
