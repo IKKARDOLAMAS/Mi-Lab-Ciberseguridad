@@ -87,3 +87,37 @@ Realicé un escaneo sigiloso (`-sS`) al objetivo `xx.x.2.2` detectando servicios
 * **Estado "Filtered":** 97 puertos están protegidos por un Firewall que no respondió a mis paquetes.
 
 **Conclusión:** El objetivo es una máquina Windows. El siguiente paso lógico sería realizar una enumeración de SMB para ver si hay carpetas compartidas sin contraseña.
+
+## 📅 Día 3: Análisis de Vulnerabilidades
+Hoy aprendí a identificar debilidades específicas en los servicios detectados ayer.
+
+### 🛠️ Herramientas de Investigación
+| Herramienta | Función |
+| :--- | :--- |
+| `searchsploit` | Busca exploits (códigos de ataque) en la base de datos local de Kali. |
+| **NSE Scripts** | Scripts de Nmap para verificar vulnerabilidades automáticamente. |
+| **CVE** | Diccionario estándar de vulnerabilidades de seguridad conocidas. |
+
+### 🔬 Práctica Real: Escaneo de Vulnerabilidades
+Ejecuté un script de Nmap para verificar vulnerabilidades en el servicio SMB (Puerto 445):
+`nmap -p 445 --script smb-vuln-* [IP_OBJETIVO]`
+
+### 🧠 Concepto Clave: "Exploit" vs "Vulnerabilidad"
+* **Vulnerabilidad:** Es el hueco en la seguridad (la ventana rota).
+* **Exploit:** Es la herramienta o código que se usa para aprovechar ese hueco y entrar.
+
+### 🕵️‍♂️ 4. Interpretación de Resultados de Scripts
+Al ejecutar el script `ms17-010` contra el objetivo `XX.X.X.2`:
+* **Resultado:** El puerto 445 está abierto, pero el script no reportó vulnerabilidad.
+* **Lección:** Un puerto abierto no siempre significa una entrada directa. La ausencia de reporte del script indica que el sistema probablemente cuenta con los parches de seguridad (Security Patches) contra EternalBlue.
+
+### 🛠️ Uso de Comodines en Scripts
+Aprendí a usar el comodín `*` para lanzar múltiples escaneos de vulnerabilidad simultáneos:
+`nmap -p 445 --script "smb-vuln-*"`
+
+### 🛡️ 5. Resultados de Escaneo con Comodines
+Ejecuté una batería de scripts `smb-vuln-*` para agotar las posibilidades de ataque en el puerto 445.
+
+* **Resultado ms10-054:** Negativo (False). El sistema está parcheado contra este desbordamiento de memoria.
+* **Resultado ms10-061:** Error de negociación. El sistema objetivo rechazó la conexión durante la fase de reconocimiento, lo que indica presencia de medidas de protección activas.
+* **Conclusión Final del Día:** El reconocimiento avanzado permite descartar vectores de ataque inútiles, ahorrando tiempo y evitando ser detectado por intentar usar exploits que no funcionarán.
