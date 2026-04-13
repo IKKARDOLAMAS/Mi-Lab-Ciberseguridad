@@ -122,51 +122,20 @@ Ejecuté una batería de scripts `smb-vuln-*` para agotar las posibilidades de a
 * **Resultado ms10-061:** Error de negociación. El sistema objetivo rechazó la conexión durante la fase de reconocimiento, lo que indica presencia de medidas de protección activas.
 * **Conclusión Final del Día:** El reconocimiento avanzado permite descartar vectores de ataque inútiles, ahorrando tiempo y evitando ser detectado por intentar usar exploits que no funcionarán.
 
-🚀 Día 4: Enumeración de Servicios y Ataques de Diccionario
-En esta sesión, pasé de la fase de escaneo pasivo a la fase de explotación de credenciales, enfrentándome a protecciones reales de red y aprendiendo a depurar errores de conexión y sintaxis en herramientas de fuerza bruta.
+## 📅 Día 4: Ataques de Diccionario y Fuerza Bruta
+Hoy aprendí que si un sistema está actualizado, el eslabón más débil es el humano y sus contraseñas.
 
-🛠️ Herramientas Utilizadas
-Hydra v9.6: El "cracker" de login más rápido y versátil de la industria.
+### 📚 Listas de Palabras (Wordlists)
+* **Rockyou.txt:** La lista estándar de la industria con millones de contraseñas filtradas.
+* **Ubicación en Kali:** `/usr/share/wordlists/`
 
-Rockyou.txt: Diccionario estándar con más de 14.3 millones de contraseñas reales filtradas en brechas de seguridad.
+### 🐉 Herramientas de Ataque
+| Herramienta | Función |
+| :--- | :--- |
+| **Hydra** | Realiza ataques de fuerza bruta rápidos contra más de 50 protocolos (SSH, SMB, HTTP). |
+| **John the Ripper** | Se usa para "romper" contraseñas si ya tenemos el archivo de claves. |
 
-🔬 Bitácora de Pruebas y Troubleshooting (Depuración)
-1. Preparación del Diccionario
-Localicé el archivo en /usr/share/wordlists/. Aprendí que muchas herramientas no pueden leer el archivo si está comprimido (.gz), por lo que realicé la descompresión manual:
-
-Bash
-sudo gunzip rockyou.txt.gz
-Análisis del "Top 3": Al usar head -n 3, confirmé que las contraseñas más comunes son 123456, password y 12345. Esto demuestra que el factor humano es el eslabón más débil.
-
-2. Intento de Ataque SMB (Puerto 445)
-Comando utilizado: hydra -l admin -P rockyou.txt -t 1 10.0.2.2 smb
-
-Resultado: [ERROR] invalid reply from target
-
-Diagnóstico: El servicio SMB detectó el flujo de intentos automáticos y cortó la comunicación para evitar un ataque de denegación de servicio (DoS) o fuerza bruta.
-
-Aprendizaje: Para atacar SMB se requiere un enfoque extremadamente lento (-t 1) o el uso de herramientas específicas que manejen mejor el protocolo.
-
-3. Intento de Ataque SSH (Puerto 22)
-Comando utilizado: hydra -l admin -P rockyou.txt -t 4 10.0.2.2 ssh
-
-Resultado: [ERROR] Connection refused
-
-Diagnóstico: El puerto 22 está cerrado o filtrado por un Firewall perimetral, lo que impide cualquier intento de negociación de credenciales.
-
-📊 Tabla de Comandos Rápidos (Hydra)
-Flag	Función	Uso Práctico
--l	Usuario único	Cuando el nombre de usuario es conocido (ej. admin)
--L	Lista de usuarios	Para probar múltiples nombres desde un archivo
--p	Password único	Para probar una sola clave contra muchos usuarios
--P	Diccionario	Para cargar listas masivas como rockyou.txt
--t	Tasks (Hilos)	Controla la velocidad de intentos paralelos
--s	Puerto	Especifica un puerto no estándar
-💡 Conceptos Clave Aprendidos
-Password Spraying: Técnica que consiste en probar una contraseña común contra muchos usuarios diferentes para evitar el bloqueo de cuentas (Account Lockout).
-
-Evasión de Seguridad: El uso excesivo de hilos (-t 16 o superior) suele alertar a los sistemas de detección de intrusos (IDS/IPS).
-
-Diccionarios Personalizados: La importancia de usar listas de palabras que se adapten al idioma y contexto de la víctima.
+### 🧠 Concepto Clave: "Password Spraying"
+Aprendí que en lugar de probar muchas contraseñas con un usuario, es mejor probar una contraseña común (como `Password123`) contra muchos usuarios para no bloquear las cuentas.
 
 
