@@ -168,3 +168,5 @@ Password Spraying: Técnica que consiste en probar una contraseña común contra
 Evasión de Seguridad: El uso excesivo de hilos (-t 16 o superior) suele alertar a los sistemas de detección de intrusos (IDS/IPS).
 
 Diccionarios Personalizados: La importancia de usar listas de palabras que se adapten al idioma y contexto de la víctima.
+
+
