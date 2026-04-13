@@ -122,20 +122,37 @@ Ejecuté una batería de scripts `smb-vuln-*` para agotar las posibilidades de a
 * **Resultado ms10-061:** Error de negociación. El sistema objetivo rechazó la conexión durante la fase de reconocimiento, lo que indica presencia de medidas de protección activas.
 * **Conclusión Final del Día:** El reconocimiento avanzado permite descartar vectores de ataque inútiles, ahorrando tiempo y evitando ser detectado por intentar usar exploits que no funcionarán.
 
-## 📅 Día 4: Ataques de Diccionario y Fuerza Bruta
-Hoy aprendí que si un sistema está actualizado, el eslabón más débil es el humano y sus contraseñas.
+## 📅 Día 4: Ataques de Diccionario y Fuerza Bruta (Hydra)
+Hoy pasé de la fase de análisis de vulnerabilidades a la fase de **explotación de credenciales**, aprendiendo a manejar diccionarios masivos y a depurar ataques fallidos.
 
-### 📚 Listas de Palabras (Wordlists)
-* **Rockyou.txt:** La lista estándar de la industria con millones de contraseñas filtradas.
-* **Ubicación en Kali:** `/usr/share/wordlists/`
+### 🛠️ 1. Herramientas y Munición Digital
+Para adivinar contraseñas no se ataca al azar; se utiliza "munición" basada en filtraciones reales:
 
-### 🐉 Herramientas de Ataque
-| Herramienta | Función |
-| :--- | :--- |
-| **Hydra** | Realiza ataques de fuerza bruta rápidos contra más de 50 protocolos (SSH, SMB, HTTP). |
-| **John the Ripper** | Se usa para "romper" contraseñas si ya tenemos el archivo de claves. |
+* **Rockyou.txt:** El diccionario estándar con 14.3 millones de contraseñas. 
+* **Ubicación:** `/usr/share/wordlists/`.
+* **Dato curioso:** Al analizar el archivo con `head -n 3`, confirmé que las contraseñas más usadas son `123456`, `password` y `12345`.
 
-### 🧠 Concepto Clave: "Password Spraying"
-Aprendí que en lugar de probar muchas contraseñas con un usuario, es mejor probar una contraseña común (como `Password123`) contra muchos usuarios para no bloquear las cuentas.
+### 🐉 2. Dominando Hydra (The Password Cracker)
+Aprendí la sintaxis de **Hydra** para realizar ataques de fuerza bruta dirigidos.
 
+| Flag | Función | Uso Práctico |
+| :--- | :--- | :--- |
+| `-l` | Usuario único | Cuando el nombre es conocido (ej. `admin`). |
+| `-P` | Diccionario | Para cargar la lista `rockyou.txt`. |
+| `-t` | Tasks (Hilos) | Controla la velocidad. `-t 1` es necesario para evitar bloqueos en SMB. |
+| `-s` | Puerto | Para especificar un puerto manual si no es el estándar. |
 
+### 🔬 3. Bitácora de Troubleshooting (Depuración)
+En ciberseguridad, un error es una respuesta del servidor que debemos saber leer. Realicé pruebas contra dos servicios:
+
+1. **Target SMB (Puerto 445):** * **Resultado:** `[ERROR] invalid reply from target`.
+   * **Lección:** Los sistemas modernos detectan el flujo de intentos y cortan la conexión (Protección Anti-Brute Force). Es vital ajustar la velocidad con `-t 1`.
+   
+2. **Target SSH (Puerto 22):** * **Resultado:** `[ERROR] Connection refused`.
+   * **Lección:** Confirmación de puerto cerrado. No se puede atacar lo que no está disponible; la enumeración previa es la clave del éxito.
+
+### 🧠 Concepto Clave: Password Spraying
+Aprendí que es más efectivo probar una sola contraseña común contra muchos usuarios diferentes, en lugar de muchas contraseñas contra un solo usuario. Esto evita el **Account Lockout** (bloqueo de cuenta) y permite pasar desapercibido ante los sistemas de monitoreo.
+
+---
+*Próximo objetivo: Ataques a aplicaciones Web (SQL Injection).*
