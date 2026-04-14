@@ -156,3 +156,32 @@ Aprendí que es más efectivo probar una sola contraseña común contra muchos u
 
 ---
 *Próximo objetivo: Ataques a aplicaciones Web (SQL Injection).*
+
+## 📅 Día 5: Conectividad en Red Real y Pentesting Web
+
+Hoy logré un hito importante en mi formación: pasé de entornos puramente virtuales a un **escenario de red física real**, conectando dos laptops en una arquitectura de ataque-víctima.
+
+### 🌐 1. Establecimiento de Conectividad (Capa de Red)
+Tras resolver problemas de sintaxis y configuración de Firewall, logré una conexión estable entre mi estación de ataque (Kali Linux) y mi objetivo físico.
+
+**Evidencia de éxito (Ping Statistics):**
+* **Paquetes:** 109 transmitidos / 109 recibidos.
+* **Pérdida de datos:** 0%.
+* **Latencia promedio (RTT):** 4.3ms.
+
+> *Lección:* La estabilidad de la red es el cimiento de cualquier auditoría. Sin una conexión sólida (0% loss), las herramientas de explotación como Hydra o SQLMap darán falsos negativos.
+
+### 💉 2. Introducción a Vulnerabilidades Web (SQL Injection)
+Exploré la teoría y práctica de la inyección de código SQL, centrada en el **OWASP Top 10**.
+
+* **Concepto:** Manipulación de consultas backend mediante el ingreso de caracteres lógicos (`' OR 1=1 --`) en formularios web.
+* **Herramienta Analizada:** `sqlmap`. Aprendí que la resolución de nombres (DNS) y el uso de `--random-agent` son vitales para evadir bloqueos básicos de conexión.
+
+### 🛠️ 3. Troubleshooting y Resolución de Problemas
+Documento los errores superados hoy, ya que la capacidad de diagnóstico es lo que define a un analista senior:
+1.  **Error de Sintaxis en IP:** Corregido el uso de caracteres especiales en la terminal.
+2.  **Connection Refused:** Identificado como un fallo de servicios web inactivos o bloqueos de Firewall perimetral.
+3.  **Resolución de Host:** Aprendí a mapear IPs manualmente en `/etc/hosts` cuando el DNS falla.
+
+---
+*"El hacking no es solo lanzar herramientas, es entender por qué cada bit llega a su destino."*
