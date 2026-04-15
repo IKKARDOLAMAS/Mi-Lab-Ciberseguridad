@@ -185,3 +185,42 @@ Documento los errores superados hoy, ya que la capacidad de diagnóstico es lo q
 
 ---
 *"El hacking no es solo lanzar herramientas, es entender por qué cada bit llega a su destino."*
+
+# 📅 Día 6: Ataque Man-in-the-Middle (MITM) mediante ARP Poisoning
+
+## 📝 Descripción del Proyecto
+En esta sesión de laboratorio, escalé de la fase de reconocimiento a la fase de **explotación de protocolos de red**. El objetivo fue posicionar mi estación de trabajo (Kali Linux) como un intermediario invisible entre una víctima física y el Gateway (Router), permitiendo la intercepción y análisis de tráfico de Capa 7.
+
+
+
+## 🛠️ Entorno de Laboratorio
+* **Atacante:** Kali Linux 2026 (IP: 192.168.1.2).
+* **Víctima:** Laptop física (IP: 192.168.1.7).
+* **Servidor de Prueba:** Instancia de `http.server` (Python) en puerto 80.
+* **Herramienta de Intercepción:** `Ettercap 0.8.4` (Modo Texto/Unified Sniffing).
+
+## 🚀 Implementación Técnica
+
+### 1. Manipulación del Kernel (IP Forwarding)
+Para evitar que la víctima perdiera la conexión a internet y el ataque fuera detectado (DoS), habilité el reenvío de paquetes en el núcleo de Linux:
+```bash```
+```sudo sysctl -w net.ipv4.ip_forward=1```
+
+### 2. Envenenamiento de Tablas ARP
+Utilicé Ettercap para enviar paquetes ARP falsificados. El objetivo fue asociar mi dirección MAC con la IP del Router en la tabla de la víctima, y viceversa.
+
+Comando ejecutado: sudo ettercap -T -q -M arp:remote /192.168.1.1// /192.168.1.7//
+
+### 3. Captura y Análisis de Tráfico
+* **Se simuló una navegación por parte de la víctima hacia un servidor no cifrado (HTTP).
+
+* **Resultado: Se confirmaron más de 325,000 bytes reenviados exitosamente.
+
+* **Evidencia: Los logs del servidor en la víctima registraron peticiones GET con código 200 OK, validando que el tráfico pasó íntegro a través del nodo atacante.
+
+🔬 Lecciones Aprendidas y Hardening
+* **Vulnerabilidad de Protocolos Base: ARP es un protocolo sin estado y sin autenticación, lo que facilita la suplantación.
+
+* **Importancia de TLS: El tráfico interceptado en HTTP es totalmente legible; el uso de HTTPS/HSTS es crítico para la confidencialidad.
+
+* **Defensa: En entornos corporativos, es vital implementar Dynamic ARP Inspection (DAI) y Port Security para mitigar estos riesgos.
