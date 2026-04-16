@@ -224,3 +224,25 @@ Comando ejecutado: sudo ettercap -T -q -M arp:remote /192.168.1.1// /192.168.1.7
 * **Importancia de TLS: El tráfico interceptado en HTTP es totalmente legible; el uso de HTTPS/HSTS es crítico para la confidencialidad.
 
 * **Defensa: En entornos corporativos, es vital implementar Dynamic ARP Inspection (DAI) y Port Security para mitigar estos riesgos.
+
+## 🛡️ Día 07: Intercepción de Tráfico y Ataque MITM
+
+En esta sesión se realizó una prueba de concepto sobre la interceptación de datos en una red local (LAN) utilizando una arquitectura de ataque **Man-in-the-Middle**. El objetivo fue capturar credenciales de un dispositivo físico externo para validar la inseguridad de los protocolos sin cifrado.
+
+### 🔍 Resumen del Laboratorio
+* **Escenario:** Una máquina atacante (Kali Linux) y una víctima (Portátil física) conectadas a la misma red Wi-Fi.
+* **Técnica principal:** ARP Spoofing (Envenenamiento de tablas ARP) mediante **Ettercap**.
+* **Estrategia de captura:** Implementación de un **Sinkhole HTTP** (Servidor web falso) para interceptar peticiones `POST` directas.
+
+
+
+### 🛠️ Desafíos y Soluciones
+1. **Filtro de Tráfico:** Se identificó ruido de red (tráfico a IPs de Azure/Microsoft) que dificultaba la captura. Se solucionó configurando un servidor local en Kali para forzar una conexión directa.
+2. **Error 404/501:** Durante la fase de servidor, se resolvieron errores de ruta de archivos y permisos de método `POST` mediante la configuración correcta de `http.server` de Python desde el directorio raíz del formulario.
+3. **Visibilidad de Datos:** Se utilizó la función *Follow TCP Stream* de Wireshark para reconstruir el paquete y obtener el usuario y la contraseña en texto plano.
+
+### 💡 Aprendizajes Clave
+* **Vulnerabilidad de HTTP:** Se confirmó que cualquier dato enviado por el puerto 80 es susceptible de ser leído si un atacante se posiciona entre el cliente y el servidor.
+* **Persistencia:** La importancia de adaptar el ataque cuando el plan original (captura pasiva) no es suficiente debido a configuraciones de red o cifrado.
+
+> **Status:** ✅ Laboratorio completado con éxito. Credenciales capturadas y documentadas.
