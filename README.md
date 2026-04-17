@@ -246,3 +246,25 @@ En esta sesión se realizó una prueba de concepto sobre la interceptación de d
 * **Persistencia:** La importancia de adaptar el ataque cuando el plan original (captura pasiva) no es suficiente debido a configuraciones de red o cifrado.
 
 > **Status:** ✅ Laboratorio completado con éxito. Credenciales capturadas y documentadas.
+
+## 🛡️ Día 08: Análisis de Cifrado y Protocolos TLS (Defensa)
+
+Tras el éxito del ataque MITM del Día 7, en esta sesión se analizó la efectividad del cifrado de extremo a extremo (**HTTPS**) como medida de protección fundamental contra la interceptación de datos.
+
+### 🔍 Resumen del Laboratorio
+* **Objetivo:** Comparar la visibilidad de los datos en una red interceptada cuando se utilizan protocolos seguros.
+* **Escenario:** Captura de tráfico real desde la portátil física hacia dominios con certificados SSL (Wikipedia/GitHub) a través de Kali Linux.
+* **Técnica:** Interceptación pasiva de paquetes mediante **Wireshark** bajo un entorno de ARP Spoofing activo.
+
+
+
+### 💡 Hallazgos Clave
+1. **Confidencialidad:** Al aplicar la técnica de *Follow TCP Stream* en paquetes de datos de aplicación (puerto 443), se confirmó que la información es totalmente ilegible (**Ciphertext**).
+2. **Handshake SSL/TLS:** Se identificó el proceso de negociación entre cliente y servidor, validando cómo se establecen las llaves de cifrado antes del envío de información sensible.
+3. **Impenetrabilidad:** A diferencia del Día 7 (HTTP), donde las claves eran visibles, el cifrado TLS garantiza que, aunque el atacante posea el paquete, no posee la información.
+
+### 📊 Comparativa de Sesiones
+* **Día 07:** Explotación exitosa de tráfico sin cifrar (Vulnerabilidad detectada).
+* **Día 08:** Validación de controles de seguridad criptográficos (Mitigación comprobada).
+
+> **Status:** ✅ Análisis de cifrado completado. La integridad y confidencialidad de los datos se mantienen intactas frente a ataques MITM gracias a TLS.
