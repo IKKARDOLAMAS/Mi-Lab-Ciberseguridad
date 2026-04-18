@@ -268,3 +268,15 @@ Tras el éxito del ataque MITM del Día 7, en esta sesión se analizó la efecti
 * **Día 08:** Validación de controles de seguridad criptográficos (Mitigación comprobada).
 
 > **Status:** ✅ Análisis de cifrado completado. La integridad y confidencialidad de los datos se mantienen intactas frente a ataques MITM gracias a TLS.
+
+## 🛡️ Día 09: Administración Segura y Hardening con SSH
+
+En esta sesión se configuró un entorno de administración remota entre una estación de trabajo (Portátil - Wi-Fi) y un servidor controlado (Kali Linux - Cable).
+
+### 🔍 Hallazgos Técnicos
+* **Intercambio de IPs:** Se validó mediante Wireshark el flujo de datos donde la IP de origen (Portátil) envía peticiones al puerto seguro del servidor (Kali).
+* **Análisis de Protocolo:** A diferencia del Día 7 y 8, se observó que el protocolo SSH cifra la comunicación desde el establecimiento de la conexión, impidiendo el análisis de comandos ejecutados vía MITM.
+* **Hardening:** Se realizó el cambio del puerto por defecto (22 → 2222) para reducir la superficie de exposición ante escaneos automatizados.
+
+### 📊 Conclusión
+El uso de túneles cifrados (SSH) es la única forma segura de gestionar infraestructura. Incluso en una red híbrida, la confidencialidad de la sesión administrativa se mantiene íntegra.
