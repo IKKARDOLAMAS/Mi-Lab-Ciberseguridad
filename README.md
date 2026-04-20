@@ -194,8 +194,8 @@ En esta sesión de laboratorio, escalé de la fase de reconocimiento a la fase d
 
 
 ## 🛠️ Entorno de Laboratorio
-* **Atacante:** Kali Linux 2026 (IP: 192.168.1.2).
-* **Víctima:** Laptop física (IP: 192.168.1.7).
+* **Atacante:** Kali Linux 2026 (IP: 192.168.x.x).
+* **Víctima:** Laptop física (IP: 192.168.x.x).
 * **Servidor de Prueba:** Instancia de `http.server` (Python) en puerto 80.
 * **Herramienta de Intercepción:** `Ettercap 0.8.4` (Modo Texto/Unified Sniffing).
 
@@ -209,7 +209,7 @@ Para evitar que la víctima perdiera la conexión a internet y el ataque fuera d
 ### 2. Envenenamiento de Tablas ARP
 Utilicé Ettercap para enviar paquetes ARP falsificados. El objetivo fue asociar mi dirección MAC con la IP del Router en la tabla de la víctima, y viceversa.
 
-Comando ejecutado: sudo ettercap -T -q -M arp:remote /192.168.1.1// /192.168.1.7//
+Comando ejecutado: sudo ettercap -T -q -M arp:remote /192.168.1.x// /192.168.1.x//
 
 ### 3. Captura y Análisis de Tráfico
 * **Se simuló una navegación por parte de la víctima hacia un servidor no cifrado (HTTP).
