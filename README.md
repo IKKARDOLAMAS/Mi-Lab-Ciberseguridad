@@ -280,3 +280,31 @@ En esta sesión se configuró un entorno de administración remota entre una est
 
 ### 📊 Conclusión
 El uso de túneles cifrados (SSH) es la única forma segura de gestionar infraestructura. Incluso en una red híbrida, la confidencialidad de la sesión administrativa se mantiene íntegra.
+
+## 🛡️ Día 10: Auditoría de Red y Descubrimiento de Activos (Reconocimiento Activo)
+
+En la décima sesión, pasamos de la administración segura a la **Auditoría de Infraestructura**. El objetivo fue realizar un reconocimiento detallado de una estación de trabajo dentro de una red híbrida para identificar posibles vectores de ataque.
+
+### 🔍 Resumen del Laboratorio
+* **Herramienta utilizada:** Nmap (Network Mapper).
+* **Objetivo:** Análisis de superficie de ataque en un host Windows 10 (192.xxx.x.x).
+* **Técnicas aplicadas:** Escaneo de versiones (`-sV`), detección de OS (`-O`) y escaneo agresivo de servicios (`-A`).
+
+### 📊 Hallazgos Técnicos (Resultados de Nmap)
+
+| Puerto | Estado | Servicio | Versión / Observación |
+|--------|--------|----------|-----------------------|
+| 135/tcp| Open   | msrpc    | Microsoft Windows RPC |
+| 139/tcp| Open   | netbios  | NetBIOS-SSN |
+| 445/tcp| Open   | SMB      | Microsoft-ds (Firma de mensajes habilitada pero no requerida) |
+
+### 💡 Análisis de Seguridad (Mentalidad de Auditor)
+1. **Detección de Sistema Operativo:** Nmap identificó con precisión el uso de **Windows 10 (Build 1709 - 21H2)**. Esta información es crítica para un analista, ya que permite buscar vulnerabilidades específicas (CVE) no parcheadas.
+2. **Vectores Críticos (SMB):** La exposición del puerto **445 (SMB)** es un hallazgo de alta prioridad en entornos financieros, debido a su historial de explotación por Ransomware (ej. WannaCry). 
+3. **Análisis de Configuración:** Se detectó que el protocolo SMB permite la conexión sin requerir obligatoriamente la firma de mensajes (`Message signing enabled but not required`), lo que expone al sistema a ataques de **SMB Relay**.
+4. **Validación de Hardening:** El puerto personalizado **2222 (SSH)** configurado el Día 9 no apareció en el escaneo estándar de 1,000 puertos, lo que demuestra la efectividad de la "Seguridad por Oscuridad" frente a escaneos rápidos.
+
+### 🚀 Conclusión para el Sector Fintech
+El reconocimiento activo permitió identificar servicios que, aunque son estándar en Windows, aumentan la superficie de ataque. La recomendación técnica es restringir el acceso a SMB y MSRPC mediante reglas de firewall perimetral y forzar el firmado de mensajes para proteger la integridad de los datos financieros.
+
+> **Status:** ✅ Auditoría completada. Capacidad de identificación de activos y análisis de riesgos demostrada.
