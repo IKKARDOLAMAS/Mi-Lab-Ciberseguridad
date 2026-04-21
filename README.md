@@ -325,3 +325,37 @@ Hoy hice la transición de la ejecución técnica al **Análisis de Riesgos**, u
 3.  **Medio (12):** Vulnerabilidad a ataques Man-in-the-Middle por falta de cifrado TLS.
 
 > **Reflexión:** Un buen analista no solo encuentra fallos, sino que sabe explicarle a la empresa por qué debe invertir en solucionarlos.
+
+# 🛡️ Registro de Laboratorio: Día 12 - Análisis de Logs y Blue Team
+
+En la jornada de hoy, transicioné de la fase de gestión a la de **Defensa Activa (Blue Team)**, enfocándome en la trazabilidad de eventos y el análisis forense de intentos de acceso.
+
+## 📝 Descripción del Laboratorio
+El objetivo fue simular un ataque de fuerza bruta por SSH para entender cómo el sistema operativo registra indicadores de compromiso (IoC) y cómo un analista de seguridad puede detectarlos.
+
+### 🛠️ Herramientas y Comandos Utilizados
+* **Protocolo:** SSH (Secure Shell)
+* **Gestor de Logs:** `systemd-journald`
+* **Comandos:** - `journalctl -u ssh -f` (Monitoreo en tiempo real)
+  - `grep` (Filtrado de patrones específicos)
+  - `ssh user@localhost` (Generación de tráfico de ataque)
+
+---
+
+## 🔍 Fase 1: Verificación de Identidad (Fingerprinting)
+Antes de la autenticación, se analizó el proceso de intercambio de llaves **ED25519**. Este paso es crítico en ciberseguridad bancaria para prevenir ataques de **Man-in-the-Middle (MitM)**, asegurando que el servidor al que nos conectamos es legítimo.
+
+
+
+---
+
+## 📊 Fase 2: Análisis de Evidencias (Logs)
+Tras simular múltiples intentos fallidos con el usuario `analista_falso`, se procedió a auditar el registro del sistema.
+
+### Hallazgos de Auditoría:
+Los siguientes registros confirman la detección de una anomalía en el servicio de acceso:
+
+```text
+Apr 21 14:28:39 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
+Apr 21 14:28:56 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
+Apr 21 14:29:05 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
