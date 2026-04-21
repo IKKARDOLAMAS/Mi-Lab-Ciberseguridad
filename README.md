@@ -308,3 +308,20 @@ En la décima sesión, pasamos de la administración segura a la **Auditoría de
 El reconocimiento activo permitió identificar servicios que, aunque son estándar en Windows, aumentan la superficie de ataque. La recomendación técnica es restringir el acceso a SMB y MSRPC mediante reglas de firewall perimetral y forzar el firmado de mensajes para proteger la integridad de los datos financieros.
 
 > **Status:** ✅ Auditoría completada. Capacidad de identificación de activos y análisis de riesgos demostrada.
+
+### Día 11: Gestión de Riesgos y Reporte Ejecutivo 📊🛡️
+
+Hoy hice la transición de la ejecución técnica al **Análisis de Riesgos**, una competencia clave para el sector financiero y Fintech. El objetivo fue transformar los hallazgos de los escaneos de Nmap y ataques MITM en datos accionables para una organización.
+
+**Lo que aprendí y apliqué hoy:**
+* **Cuantificación de Amenazas:** Implementé la metodología de cálculo de riesgo mediante la fórmula: `Probabilidad (1-5) x Impacto (1-5)`.
+* **Automatización de Reportes:** Creé una matriz en Excel/Sheets utilizando **Formato Condicional** y **Fórmulas Lógicas** (`=SI`) para automatizar la clasificación de prioridades.
+* **Sanitización de Datos:** Apliqué técnicas de anonimización en los reportes (enmascaramiento de IPs y MACs) para cumplir con estándares de privacidad y seguridad de la información.
+* **Gestión de Entregables:** Generé reportes en formatos **PDF** (para nivel ejecutivo) y **CSV** (para análisis de datos técnicos).
+
+**Hallazgos Priorizados en la Matriz:**
+1.  **Crítico (25):** Exposición de puerto 445 (SMB) en Windows 10.
+2.  **Alto (20):** Servicio SSH expuesto en puerto por defecto (22) en servidor Kali.
+3.  **Medio (12):** Vulnerabilidad a ataques Man-in-the-Middle por falta de cifrado TLS.
+
+> **Reflexión:** Un buen analista no solo encuentra fallos, sino que sabe explicarle a la empresa por qué debe invertir en solucionarlos.
