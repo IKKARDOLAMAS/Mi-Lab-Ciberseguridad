@@ -355,7 +355,34 @@ Tras simular múltiples intentos fallidos con el usuario `analista_falso`, se pr
 ### Hallazgos de Auditoría:
 Los siguientes registros confirman la detección de una anomalía en el servicio de acceso:
 
-```text
-Apr 21 14:28:39 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
-Apr 21 14:28:56 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
-Apr 21 14:29:05 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2
+```text```
+```Apr 21 14:28:39 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2```
+```Apr 21 14:28:56 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2```
+```Apr 21 14:29:05 kali sshd-session[122180]: Failed password for invalid user analista_falso from ::1 port 55686 ssh2```
+
+# 🛡️ Día 13: Implementación de IPS (Intrusion Prevention System)
+
+## 📝 Resumen del Incidente y Mitigación
+En esta sesión se abordó el endurecimiento (**Hardening**) del servicio SSH mediante la implementación de **Fail2Ban**. Se configuró una defensa activa para mitigar ataques de fuerza bruta detectados en las auditorías de logs anteriores.
+
+## 🛠️ Especificaciones Técnicas
+- **Plataforma:** Kali Linux (Rolling Release)
+- **Servicio Protegido:** OpenSSH Server
+- **Motor de Análisis:** `systemd-journal` (Backend de logs nativo)
+- **Acción de Mitigación:** Bloqueo dinámico mediante `iptables`
+
+## ⚙️ Configuración de Seguridad (`jail.local`)
+Se aplicó una política de **Tolerancia Mínima** para entornos de alta seguridad:
+* `maxretry = 3`: Número máximo de fallos antes del ban.
+* `bantime = 10m`: Duración inicial del bloqueo.
+* `backend = systemd`: Integración directa para mayor velocidad de respuesta.
+
+## 📊 Evidencia de Operación
+Tras simular un ataque coordinado, el IPS identificó y neutralizó múltiples direcciones IP de origen.
+
+> **Nota de Privacidad:** En la siguiente captura, se han anonimizado los octetos finales de las direcciones IP y el hostname del servidor para cumplir con los protocolos de **OPSEC**.
+
+![Inserta_aquí_tu_captura_editada]
+
+---
+*Documentado por: íkkii - Cybersecurity Researcher*
