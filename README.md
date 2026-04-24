@@ -386,3 +386,44 @@ Tras simular un ataque coordinado, el IPS identificó y neutralizó múltiples d
 
 ---
 *Documentado por: íkkii - Cybersecurity Researcher*
+
+# Reporte de Auditoría: Detección de Rootkits y Análisis de Persistencia (Día 15)
+
+## 🕵️‍♂️ Resumen de la Auditoría
+Tras establecer la línea base de integridad con Tripwire, se procedió a realizar un análisis de **Threat Hunting** enfocado en el Kernel y los binarios esenciales del sistema. El objetivo fue identificar posibles mecanismos de persistencia (Rootkits) que operan fuera del alcance de los sistemas de archivos convencionales.
+
+## 🛠️ Herramientas y Metodología
+* **Herramienta:** Chkrootkit v0.58
+* **Alcance:** * Escaneo de binarios del sistema (`ps`, `ls`, `netstat`, `ifconfig`).
+    * Verificación de módulos del Kernel (LKM) sospechosos.
+    * Detección de interfaces en modo promiscuo (Sniffing).
+    * Búsqueda de archivos "alien" (archivos ocultos en directorios de librerías).
+
+## 📊 Análisis de Resultados y Hallazgos
+
+### 1. Verificación de Binarios Críticos
+Se auditó la integridad de las herramientas de administración. 
+* **Resultado:** `NOT INFECTED`. 
+* **Conclusión:** Los comandos esenciales no han sido alterados para ocultar procesos o conexiones maliciosas.
+
+### 2. Análisis de Modo Promiscuo (Sniffer Detection)
+Se detectó una alerta de seguridad en la interfaz de red:
+* **Hallazgo:** `eth0: PACKET SNIFFER(/usr/sbin/NetworkManager[686])`
+* **Análisis Forense:** Se realizó un rastreo del PID 686, confirmando que la actividad pertenece al servicio legítimo de red del sistema. 
+* **Estatus:** **Falso Positivo Validado.**
+
+### 3. Depuración de Archivos Sospechosos (/usr/lib)
+El sistema reportó múltiples archivos ocultos en directorios de sistema.
+* **Hallazgo:** Archivos `.gitkeep`, `.htaccess` y `.coveragerc` en librerías de herramientas como `hashcat` y `gophish`.
+* **Validación:** Se contrastó el origen de los archivos con los paquetes oficiales de Debian/Kali.
+* **Estatus:** **Archivos Legítimos Identificados.**
+
+## 📸 Evidencias de la Auditoría
+![Detección de Sniffer](15_1.png)
+*Figura 1: Análisis de interfaces de red y detección de procesos de monitoreo.*
+
+![Análisis de Archivos Sospechosos](15_2.png)
+*Figura 2: Auditoría de archivos ocultos y validación de falsos positivos en librerías.*
+
+## 🏁 Conclusión Técnica
+El sistema Kali Linux se encuentra **libre de infecciones por Rootkits conocidos**. La presencia de alertas fue analizada y clasificada como actividad legítima del sistema operativo y sus herramientas de auditoría preinstaladas. Se recomienda mantener escaneos periódicos para asegurar la persistencia de este estado de limpieza.
