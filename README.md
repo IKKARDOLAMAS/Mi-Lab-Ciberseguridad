@@ -382,7 +382,7 @@ Tras simular un ataque coordinado, el IPS identificó y neutralizó múltiples d
 
 > **Nota de Privacidad:** En la siguiente captura, se han anonimizado los octetos finales de las direcciones IP y el hostname del servidor para cumplir con los protocolos de **OPSEC**.
 
-![Inserta_aquí_tu_captura_editada]
+
 
 ---
 *Documentado por: íkkii - Cybersecurity Researcher*
@@ -418,12 +418,24 @@ El sistema reportó múltiples archivos ocultos en directorios de sistema.
 * **Validación:** Se contrastó el origen de los archivos con los paquetes oficiales de Debian/Kali.
 * **Estatus:** **Archivos Legítimos Identificados.**
 
-## 📸 Evidencias de la Auditoría
-![Detección de Sniffer](15_1.png)
-*Figura 1: Análisis de interfaces de red y detección de procesos de monitoreo.*
-
-![Análisis de Archivos Sospechosos](15_2.png)
-*Figura 2: Auditoría de archivos ocultos y validación de falsos positivos en librerías.*
-
 ## 🏁 Conclusión Técnica
 El sistema Kali Linux se encuentra **libre de infecciones por Rootkits conocidos**. La presencia de alertas fue analizada y clasificada como actividad legítima del sistema operativo y sus herramientas de auditoría preinstaladas. Se recomienda mantener escaneos periódicos para asegurar la persistencia de este estado de limpieza.
+
+### Día 16: Auditoría de Red en Host Real y Gestión de Exposición
+
+**Actividad:** Ejecución de un diagnóstico de seguridad activo desde el entorno de auditoría (Kali Linux) hacia una estación de trabajo física (Windows 10). El objetivo fue mapear la superficie de ataque real y analizar la visibilidad de protocolos críticos en la red local.
+
+**Técnicas y Herramientas:**
+* **Escaneo de Enumeración:** Uso de `nmap -sV -sC -O` para la identificación de servicios, versiones y huella digital del Sistema Operativo (OS Fingerprinting).
+* **Análisis de Protocolos:** Evaluación de los puertos 135 (MSRPC), 139 (NetBIOS) y 445 (SMB).
+* **Higiene de Datos (Redaction):** Implementación de estándares de privacidad para ocultar identificadores físicos (MAC Address) y nombres de host en la documentación técnica.
+
+**Hallazgos Técnicos:**
+1. **Exposición de SMB (Puerto 445):** Se identificó el servicio activo con la firma de mensajes habilitada pero no requerida. Esto representa un riesgo alto de ataques de **SMB Relay** y movimiento lateral.
+2. **Fuga de Metadatos:** El servicio NetBIOS permitió la recolección de información sobre la arquitectura del sistema (Windows 10 Build 1709 - 21H2) y el nombre del activo.
+3. **Servicios de Descubrimiento:** El puerto 5357 (HTTPAPI 2.0) se detectó expuesto, aumentando la huella digital del equipo ante escaneos de red pasivos.
+
+**Conclusiones de Hardening:**
+Se documentó la necesidad de restringir el acceso a puertos administrativos mediante Firewall y la obligatoriedad de firmas digitales en el tráfico SMB para mitigar vectores de explotación conocidos (como ataques tipo Man-in-the-Middle).
+
+---
