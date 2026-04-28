@@ -438,4 +438,25 @@ El sistema Kali Linux se encuentra **libre de infecciones por Rootkits conocidos
 **Conclusiones de Hardening:**
 Se documentó la necesidad de restringir el acceso a puertos administrativos mediante Firewall y la obligatoriedad de firmas digitales en el tráfico SMB para mitigar vectores de explotación conocidos (como ataques tipo Man-in-the-Middle).
 
----
+### Día 17: Ejecución de Auditoría de Vulnerabilidades (Vulnerability Assessment)
+
+**Servicio:** Evaluación de Resiliencia de Infraestructura Crítica.
+**Consultor:** Íkkii - Especialista en Seguridad Ofensiva y Defensiva.
+
+**1. Descripción de la Actividad**
+Se llevó a cabo una fase de escaneo activo sobre el activo identificado como "Endpoint-W10". El objetivo fue determinar la existencia de vectores de explotación conocidos (CVEs) y validar la efectividad de las políticas de gestión de parches implementadas en el host.
+
+**2. Metodología Aplicada**
+* **Interrogación de Servicios:** Utilización de scripts NSE (Nmap Scripting Engine) para la detección de vulnerabilidades en protocolos SMB (445) y MSRPC (135).
+* **Análisis de Superficie HTTP:** Evaluación de seguridad en el servicio HTTPAPI 2.0 (Puerto 5357) para detección de fallos tipo XSS y CSRF.
+* **Higiene de Reporte (Redaction):** Aplicación de estándares de confidencialidad mediante la censura de direcciones físicas (MAC) e identificadores lógicos (IP) en las evidencias entregables.
+
+**3. Hallazgos Estratégicos**
+* **Postura de Parches:** El activo demostró resiliencia ante vulnerabilidades críticas de alto impacto (MS10-054). Se confirma que el ciclo de vida de actualizaciones del cliente es óptimo.
+* **Control de Acceso:** Se detectó el bloqueo de intentos de negociación de protocolos sensibles, lo cual es evidencia de una configuración de firewall robusta que impide el reconocimiento profundo por parte de agentes externos.
+* **Exposición de Metadatos:** Se identificó una fuga de información menor en los encabezados del servidor web. Aunque no presenta riesgo inmediato, se recomienda su ofuscación como medida de "Defense in Depth".
+
+**4. Conclusión Técnica**
+El activo presenta una postura de seguridad superior al promedio. No se identificaron vulnerabilidades críticas que requieran intervención inmediata de emergencia. Se ha entregado al cliente el reporte completo con las recomendaciones de hardening sugeridas.
+
+
