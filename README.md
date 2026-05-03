@@ -459,4 +459,11 @@ Se llevó a cabo una fase de escaneo activo sobre el activo identificado como "E
 **4. Conclusión Técnica**
 El activo presenta una postura de seguridad superior al promedio. No se identificaron vulnerabilidades críticas que requieran intervención inmediata de emergencia. Se ha entregado al cliente el reporte completo con las recomendaciones de hardening sugeridas.
 
+## 🛠️ Día 20: Auditoría de Escalada de Privilegios (SUID)
+**Escenario:** Auditoría de un servidor Linux en una infraestructura de clínica privada.
+
+### Hallazgos Clave:
+- **Análisis de Binarios SUID:** Identificación de vectores de ataque internos a través de archivos con permisos elevados.
+- **Verificación de Vulnerabilidades:** Validación de parches para `pkexec` (CVE-2021-4034).
+
 
