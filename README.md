@@ -466,4 +466,46 @@ El activo presenta una postura de seguridad superior al promedio. No se identifi
 - **Análisis de Binarios SUID:** Identificación de vectores de ataque internos a través de archivos con permisos elevados.
 - **Verificación de Vulnerabilidades:** Validación de parches para `pkexec` (CVE-2021-4034).
 
+# Día 23: Auditoría de Identidades y Gestión de Privilegios
+
+## Descripción Operativa
+Ejecución de controles críticos sobre la gestión de identidades en el servidor de base de datos para mitigar riesgos de movimiento lateral y escalada de privilegios.
+
+## Hitos de Capacidad
+* **Aislamiento de Cuentas Críticas**: Auditoría técnica sobre la cuenta `postgres`, validando la restricción de acceso a shell para procesos de base de datos.
+* **Hardening de Almacenamiento de Credenciales**: Verificación y endurecimiento de permisos en `/etc/shadow` y `/etc/passwd`.
+* **Mitigación de Riesgos Internos**: Implementación del principio de **Mínimo Privilegio** en cuentas de servicio logístico.
+
+## Cumplimiento ISO/IEC 27001
+* **Control A.9.2.3**: Gestión de derechos de acceso privilegiado.
+* **Control A.9.4.4**: Restricción del uso de programas de utilidad con privilegios.
+
+# Día 24: Vigilancia Perimetral y Reducción de Superficie de Ataque
+
+## Descripción Operativa
+Operación de reconocimiento y blindaje de red para establecer una postura de defensa activa sobre la infraestructura logística.
+
+## Hitos de Capacidad
+* **Fingerprinting y Análisis de Exposición**: Mediante escaneos de precisión, se validó una postura de **Mínima Exposición** (99.9% de puertos filtrados).
+* **Monitoreo de Sockets en Tiempo Real**: Auditoría de conexiones activas (IPv4/IPv6) para garantizar la integridad de los flujos de datos.
+* **Detección de Anomalías Perimetrales**: Análisis de logs de autenticación para la identificación inmediata de vectores de ataque por fuerza bruta.
+
+## Cumplimiento ISO/IEC 27001
+* **Control A.13.1.1**: Gestión de seguridad en redes.
+* **Control A.12.4.1**: Registro de eventos de seguridad.
+
+# Día 25: Implementación de Respuesta Autónoma ante Incidentes
+
+## Descripción Operativa
+Evolución de la arquitectura de seguridad hacia un modelo de **Mitigación Autónoma**, eliminando la dependencia de intervención humana en ataques de acceso comunes.
+
+## Hitos de Capacidad
+* **Despliegue de Escudo Inteligente**: Integración de motores de respuesta que ejecutan bloqueos dinámicos en el Firewall en milisegundos.
+* **Analítica Forense y Threat Intelligence**: Extracción de historial de ataques previos para el endurecimiento de reglas de exclusión basadas en evidencia real.
+* **Hardening de 'Jails' de Seguridad**: Configuración de políticas de tolerancia cero para el servicio SSH, garantizando la disponibilidad del negocio ante ataques persistentes.
+
+## Cumplimiento ISO/IEC 27001
+* **Control A.16.1.5**: Respuesta a incidentes de seguridad de la información.
+* **Control A.12.1.2**: Gestión de cambios y respuesta operativa.
+
 
