@@ -508,4 +508,52 @@ Evolución de la arquitectura de seguridad hacia un modelo de **Mitigación Aut�
 * **Control A.16.1.5**: Respuesta a incidentes de seguridad de la información.
 * **Control A.12.1.2**: Gestión de cambios y respuesta operativa.
 
+# Registro de Actividades: Auditoría, Hardening y Continuidad Operativa
+
+## Día 26: Auditoría de Integridad del Sistema y Análisis de Eventos del Kernel (SIEM/Auditd)
+
+### Descripción Operativa
+Implementación y análisis de políticas de auditoría nativas a nivel de Kernel en entornos Linux utilizando el subsistema `auditd`. El objetivo se centró en rastrear llamadas del sistema (`sys_calls`), accesos a directorios críticos y detectar anomalías en la ejecución de privilegios por parte de los usuarios.
+
+### Hitos de Capacidad
+* **Monitoreo de Logs de Integridad**: Configuración de reglas personalizadas en `/etc/audit/rules.d/` para la vigilancia de archivos sensibles del sistema.
+* **Análisis Forense con `ausearch`**: Extracción y filtrado avanzado de registros estructurados para el rastreo de sesiones de usuario (`ses`), identificadores de auditoría (`auid`) y directorios de trabajo activos (`cwd`).
+* **Correlación de Eventos**: Análisis del comportamiento del sistema frente a comandos ejecutados en la terminal para identificar posibles vectores de persistencia o escalada de privilegios.
+
+### Cumplimiento ISO/IEC 27001
+* **Control A.12.4.1**: Registro de eventos (Logging).
+* **Control A.12.4.3**: Registros del administrador y del operador.
+
+---
+
+## Día 27: Auditoría Criptográfica y Endurecimiento (Hardening) de Canales SSH
+
+### Descripción Operativa
+Evaluación exhaustiva de la robustez criptográfica en los componentes de la capa de transporte (SSH). El enfoque del día se centró en la mitigación de algoritmos heredados (*legacy*), la detección de vulnerabilidades en curvas elípticas y la preparación de la infraestructura ante vectores de amenaza modernos.
+
+### Hitos de Capacidad
+* **Ocultación de Banners de Servicio**: Eliminación de metadatos explícitos del sistema operativo (ej. fugas de información sobre distribuciones Debian en el banner de OpenSSH) para mitigar el reconocimiento pasivo por parte de atacantes.
+* **Depuración de Algoritmos Inseguros**: Identificación y desactivación de algoritmos de intercambio de llaves basados en curvas elípticas del NIST bajo sospecha de debilidades estructurales (marcado de fallos `[fail]` en diagnóstico).
+* **Transición Criptográfica Post-Cuántica**: Validación e integración de soporte para algoritmos híbridos de nueva generación (como `mlkem768x25519-sha256`), garantizando el blindaje de las comunicaciones a largo plazo.
+
+### Cumplimiento ISO/IEC 27001
+* **Control A.10.1.1**: Política sobre el uso de controles criptográficos.
+* **Control A.13.1.1**: Controles de redes (Seguridad en tránsito).
+
+---
+
+## Día 28: Planes de Contingencia, Reconstrucción de Infraestructura y Sanity Checks
+
+### Descripción Operativa
+Despliegue acelerado del entorno operativo tras un evento crítico de reinstalación de hardware. Se ejecutó un aprovisionamiento automatizado mediante Bash scripting seguido de una verificación de integridad del sistema (*Sanity Check*) para comprobar el estado operacional de las herramientas críticas de la firma.
+
+### Hitos de Capacidad
+* **Despliegue Basado en Código**: Implementación de un script automatizado (`minsight.sh`) para la inyección de dependencias básicas, herramientas de red y controladores de pantalla del hipervisor.
+* **Pruebas de Post-Instalación (Sanity Check)**: Validación cruzada en la terminal del estado funcional del Kernel de Linux (`6.18.12`), el subsistema de cifrado de bloques (`cryptsetup 2.8.4`) y el arsenal de escaneo criptográfico.
+* **Análisis de Interfaz de Comandos (CLI)**: Inspección técnica del mapa de opciones nativas de `ssh-audit v3.3.0` (parámetros de control de hilos, auditorías de cliente y mitigación de denegación de servicio como *DHEat*) para su futura integración en scripts de análisis masivo.
+
+### Cumplimiento ISO/IEC 27001
+* **Control A.12.1.1**: Procedimientos de operation documentados.
+* **Control A.17.1.2**: Implementación de la continuidad de la seguridad de la información.
+
 
