@@ -556,4 +556,17 @@ Despliegue acelerado del entorno operativo tras un evento crítico de reinstalac
 * **Control A.12.1.1**: Procedimientos de operation documentados.
 * **Control A.17.1.2**: Implementación de la continuidad de la seguridad de la información.
 
+# Día 29: Cifrado de Datos en Reposo y Desarrollo de Paneles de Auditoría Base
+
+## Descripción Operativa
+Auditoría y validación de los subsistemas criptográficos a nivel de bloque en el sistema operativo. Se implementó una interfaz de automatización en entornos de terminal para centralizar los indicadores de seguridad del almacenamiento, facilitando revisiones estructurales rápidas bajo estándares de gobernanza técnica.
+
+## Hitos de Capacidad
+* **Mapeo Estructural de Medios**: Inspección de la tabla de particiones lógicas (`lsblk`) para identificar y mapear los volúmenes virtuales asignados al procesamiento de datos del negocio.
+* **Desarrollo de Paneles de Control Interno**: Creación de un script modular de diagnóstico avanzado para presentar de forma estructurada el estado operativo del Kernel, las unidades físicas y las dependencias de seguridad.
+* **Validación de Estándares de Sellado (LUKS)**: Confirmación de disponibilidad de la suite de herramientas `cryptsetup 2.8.4` para la futura implementación de contenedores criptográficos simétricos transparentes.
+
+## Cumplimiento ISO/IEC 27001
+* **Control A.10.1.1**: Política sobre el uso de controles criptográficos.
+* **Control A.18.1.5**: Regulación de controles criptográficos para salvaguardar la propiedad intelectual y los datos organizacionales.
 
